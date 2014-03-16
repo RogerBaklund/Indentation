@@ -3,14 +3,14 @@ Indentation
 
 A few methods for working with text indentation.
 
-    blocks($raw_lines)           -- Input multiline string or array of strings, returns
-                                    array of blocks paired with line number reference
-    indent($str,$size=2,$ws=' ') -- Add spaces at the start of each line, by default 2
-    unindent($str)               -- Remove indentation equally from all lines until at 
-                                    least one line starts at position 1
-    get_indents($str)            -- Get the number of leading WS characters for each line 
-                                    in a multiline string
-    set_indents($str,$arr,$append=false) -- Set individual indentation for each line
+    blocks($lines)                 -- Input multiline string or array of strings, returns
+                                      array of blocks paired with line number reference
+    indent($lines,$size=2,$ws=' ') -- Add spaces at the start of each line, by default 2
+    unindent($lines)               -- Remove indentation equally from all lines until at 
+                                      least one line starts at position 1
+    get_indents($lines)            -- Get the number of leading WS characters for each line 
+                                      in a multiline string
+    set_indents($lines,$arr,$append=false) -- Set individual indentation for each line
 
 Each method is described in more detail below.
 
@@ -113,9 +113,9 @@ considered to be at the "root level" of the collection of "blocks".
 
 ### What is excessive indentation? ###
 
-If *all* *lines* in the input except the first have `X` spaces or more at the 
-start of the line, then `X` spaces will be removed from all lines, so that at 
-least one (the first) line will start at position one on the line.
+If *all* *lines* in the input (ignoring the first) have `X` whitespace characters 
+or more at the start of the line, then `X` spaces will be removed from all lines, 
+so that at least one (the first) line will start at position one on the line.
 
 For example, this:
 
