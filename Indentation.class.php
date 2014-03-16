@@ -1,7 +1,14 @@
 <?php
 # Roger 10. feb. 2014 14:04:00
 
-/** Generic text indentation utilities.
+/**Generic text indentation utilities.
+
+\mainpage Introduction
+
+This class has methods for manipulating indentation in blocks of text. You can
+read current indentation without making changes, you can indent or unindent a 
+block of text, you can split blocks of text based on the indentation, and you 
+can modify indentation for individual lines in a text. 
 
 TAB characters are recognized, but they count as one, which makes it hard
 to see the correct level when used in combination with spaces. For this
@@ -13,15 +20,15 @@ an array of lines, such as the one returned from `file()`.
 **NOTE:** `CR` characters are removed, the output strings will allways use `LF`.
 
 @version 1.1
-@copyright LGPL
+@license LGPL
 @author Roger Baklund roger@baklund.no
 
-History:
+Version history:
 
-- this version: 1.1 2014-03-16
+- 1.1 2014-03-16
   + Improved line handling
   + Improved documentation
-- initial version: 1.0 2014-02-10
+- 1.0 2014-02-10 (initial version)
 
 */
 class Indentation {
