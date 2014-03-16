@@ -10,14 +10,6 @@ reason you should use either spaces or `TAB` characters, not both mixed.
 The `$lines` argument can be a string with linefeeds (`LF` or `CRLF`) or
 an array of lines, such as the one returned from `file()`.
  
-    blocks($lines) -- Input multiline string, returns
-                         array of blocks paired with line number reference
-    indent($lines,$size=2) -- Add spaces at the start of each line, by default 2
-    unindent($lines) -- Remove indentation equally from all lines until at least
-                     one line starts at position 1
-    set_indents($lines,$arr,$append=false) -- Set individual indentation for each line
-    get_indents($lines) -- Get the number of leading WS chars for each line in a string
- 
 **NOTE:** `CR` characters are removed, the output strings will allways use `LF`.
 
 @version 1.1
