@@ -133,7 +133,7 @@ class Indentation {
   }
   /** Get the number of leading whitespace for each line.
    * 
-   * Will count spaces, tabs and even occurences ascii 0 and ascii 11.
+   * Will count spaces, tabs and even occurences of ascii 0 and ascii 11.
    *
    * @param string|array $lines A string or array of strings
    * @return array A list of integers, one for each line in the input
