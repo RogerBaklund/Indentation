@@ -20,7 +20,7 @@ blocks()
 Splits a string into blocks based on indentation.
 
 ~~~~~{.php}
-function blocks($raw_lines)
+function blocks($lines)
 ~~~~~
 
 This method takes a single argument, a string or an array of strings, like output 
@@ -86,7 +86,7 @@ indent()
 Injects a number of WS characters at the start of each line in the string.
 
 ~~~~~{.php}
-function indent($str,$size=2,$ws=' ')
+function indent($lines,$size=2,$ws=' ')
 ~~~~~
 
 This method takes one, two or three arguments. The first is required, it is a 
@@ -103,7 +103,7 @@ unindent()
 Remove excessive indentation.
 
 ~~~~~{.php}
-function unindent($str)
+function unindent($lines)
 ~~~~~
 
 This method takes a single argument, a multiline string, and removes excessive 
@@ -246,7 +246,7 @@ get_indents()
 Get indentation count for each line in a string with multipe lines.
 
 ~~~~~{.php}
-function get_indents($str)
+function get_indents($lines)
 ~~~~~
 
 This method takes a single argument; the string to analyze. It will return an
@@ -266,7 +266,7 @@ set_indents()
 Set indentation on individual lines in a multiline string.
 
 ~~~~~{.php}
-function set_indents($str,$arr,$append=false) 
+function set_indents($lines,$arr,$append=false) 
 ~~~~~
 
 This method takes one, two or three arguments. The first two are required. 
