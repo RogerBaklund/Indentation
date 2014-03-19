@@ -10,7 +10,7 @@ A few methods for working with text indentation.
                                       least one line starts at position 1
     get_indents($lines)            -- Get the number of leading WS characters for each line 
                                       in a multiline string
-    set_indents($lines,$arr,$append=false) -- Set individual indentation for each line
+    set_indents($lines,$arr,$append=false,$ws=' ') -- Set individual indentation for each line
 
 Each method is described in more detail below.
 
@@ -79,7 +79,6 @@ $blocks = Indentation::blocks(
 foreach($blocks as $chunk) ...
 ~~~~~
 
-
 indent()
 --------
 
@@ -90,12 +89,11 @@ function indent($lines,$size=2,$ws=' ')
 ~~~~~
 
 This method takes one, two or three arguments. The first is required, it is a 
-multiline string. The second is optional, the number of whitespace characters 
-to inject, the default value is 2. The third argument is also optional, it is 
-which whitespace character to use, by default it will be a space. You could 
-provide `"\t"` or chr(9) if you wanted to inject TABs, or you could use 
-`"&nbsp;"` for HTML output.
-
+multiline string or an array of lines. The second is optional, the number of 
+whitespace characters to inject, the default value is 2. The third argument 
+is also optional, it is which whitespace character to use, by default it will 
+be a space. You could provide `"\t"` or `chr(9)` if you wanted to inject TABs, 
+or you could use `"&nbsp;"` for HTML output.
 
 unindent()
 ----------
@@ -106,16 +104,18 @@ Remove excessive indentation.
 function unindent($lines)
 ~~~~~
 
-This method takes a single argument, a multiline string, and removes excessive 
-whitespace from the start of each line. The first line is a special case: any 
-indentation is removed and ignored. The first line with characters is allways 
-considered to be at the "root level" of the collection of "blocks". 
+This method takes a single argument, a multiline string or an array of lines, 
+and removes excessive whitespace from the start of each line. The first line 
+is a special case: any indentation is removed and ignored. The first line with 
+characters is allways considered to be at the "root level" of the collection 
+of "blocks". 
 
 ### What is excessive indentation? ###
 
-If *all* *lines* in the input (ignoring the first) have `X` whitespace characters 
-or more at the start of the line, then `X` spaces will be removed from all lines, 
-so that at least one (the first) line will start at position one on the line.
+If *all* *lines* in the input (ignoring the first) have `X` or more whitespace 
+characters at the start of the line, then `X` spaces will be removed from all 
+lines, so that at least one (the first) line will start at position one on the 
+line.
 
 For example, this:
 
@@ -136,7 +136,7 @@ Indentation::unindent("
       indented
 
 Note that the structure is kept, the entire block of text is shifted to the left.
-Lines First and Second has no indentation, lines two and four ("indented") are 
+"First" and "Second" has no indentation, lines two and four ("indented") are 
 still indented, but now with only two space characters.
 
 Sometimes the structure *is* changed, but only for the first line. Any leading 
@@ -249,15 +249,15 @@ Get indentation count for each line in a string with multipe lines.
 function get_indents($lines)
 ~~~~~
 
-This method takes a single argument; the string to analyze. It will return an
-array of integers. Length of array corresponds to number of lines in the input,
-and each value represents the number of leading whitespace characters used for 
-that line.
+This method takes a single argument; the text to analyze in the form of a 
+multiline string or an array of lines. It will return an array of integers. 
+Length of array corresponds to number of lines in the input, and each value 
+represents the number of leading whitespace characters used for that line.
 
 **Note:** TAB characters counts as one, just like space characters. If they are 
 mixed the numbers does not reflect the indentation you can see in an editor.
 
-**Note:** In addition to TAB and space characters, ascii 0, 11 and 13 will also
+**Note:** In addition to TAB and space characters, ASCII 0, 11 and 13 will also
 count as one.
     
 set_indents()
@@ -266,16 +266,18 @@ set_indents()
 Set indentation on individual lines in a multiline string.
 
 ~~~~~{.php}
-function set_indents($lines,$arr,$append=false) 
+function set_indents($lines,$arr,$append=false,$ws=' ') 
 ~~~~~
 
-This method takes one, two or three arguments. The first two are required. 
-The first is a multiline string, the string for which you want to change 
-the indentation. The second is an array of integers, each represents the 
-amount of whitespace you wish to set on each line. The third, optional 
-argument decides if the whitespace should be appended to existing whitespace
-in the input sting, or if they represent the final indentation we want. The 
-latter is the default, set it to `true` if you want it to append.
+This method takes two, three or four arguments. The first two are required. 
+The first is a multiline string or an array of lines. This is the text with
+or without indentation. The second is an array of integers, each represents the 
+amount of whitespace you wish to set or append for each line. The third, 
+optional argument decides if the whitespace should be appended to existing 
+whitespace in the input sting, or if they represent the final indentation you 
+want in the result. The latter is the default, set it to `true` if you want it
+to append. The fourth, optional parameter is which whitespace character to use, 
+by default it will use a space character (ASCII 32).
 
 
 Examples
@@ -334,6 +336,9 @@ $biggest = max($indents);
 ~~~~~
 
 Empty lines in the input would be returned as 0 indented. you can not distinguish 
-it from a line with text and no indentation without inspecting the line. The 
-`blocks()` method automatically removes empty lines.
+it from a line with text and no indentation without inspecting the line. Note that
+the `blocks()` method automatically removes empty lines, eliminating this problem.
 
+----------------
+
+Author: [Roger Baklund](mailto:roger@baklund.no)
