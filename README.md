@@ -340,5 +340,3 @@ it from a line with text and no indentation without inspecting the line. Note th
 the `blocks()` method automatically removes empty lines, eliminating this problem.
 
 ----------------
-
-Author: [Roger Baklund](mailto:roger@baklund.no)
