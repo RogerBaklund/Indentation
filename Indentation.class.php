@@ -19,12 +19,14 @@ an array of lines, such as the one returned from `file()`.
  
 **NOTE:** `CR` characters are removed, the output strings will allways use `LF`.
 
-@version 1.1
+@version 1.2
 @license LGPL
 @author Roger Baklund roger@baklund.no
 
 Version history:
 
+- 1.2 2014-03-19
+  + $ws argument added for set_indents()
 - 1.1 2014-03-16
   + Improved line handling
   + Improved documentation
@@ -105,7 +107,7 @@ class Indentation {
    *
    * @param string|array $lines The string or array of strings to indent
    * @param int $size The size of the indentation, default is 2
-   * @param string $ws The whitespace character to use, default SPACE (ascii 32)
+   * @param string $ws The whitespace character to use, default space (ASCII 32)
    * @return string The multiline string indented
    */
   static function indent($lines,$size=2,$ws=' ') {
@@ -118,14 +120,17 @@ class Indentation {
    *
    * This method is similar to indent(), except you provide an array of int
    * values specifying the indentation for each line in the multiline string.
+   * You can append to eisting indentation, and you can provide the character 
+   * to use,  by default it will be a space.
    *
    * @param string|array $lines A string or array of strings you want to indent
    * @param array $arr Array of integers, specific indentation for each line
    * @param bool $append Set to true if you want to append the given numbers
    *   to existing indentation, be default it will replace existing indentation.
+   * @param string $ws The whitespace character to use, default space (ASCII 32)
    * @return string The multiline string indented
    */
-  static function set_indents($lines,$arr,$append=false) {
+  static function set_indents($lines,$arr,$append=false,$ws=' ') {
     $lines = self::lines($lines);
     foreach($lines as $idx=>$l)
       $lines[$idx] = str_repeat(' ',$arr[$idx]).($append?$l:ltrim($l));
@@ -133,7 +138,7 @@ class Indentation {
   }
   /** Get the number of leading whitespace for each line.
    * 
-   * Will count spaces, tabs and even occurences of ascii 0 and ascii 11.
+   * Will count spaces, tabs and even occurences of ASCII 0 and ASCII 11.
    *
    * @param string|array $lines A string or array of strings
    * @return array A list of integers, one for each line in the input
