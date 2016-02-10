@@ -19,12 +19,14 @@ an array of lines, such as the one returned from `file()`.
  
 **NOTE:** `CR` characters are removed, the output strings will allways use `LF`.
 
-@version 1.2
+@version 1.3
 @license LGPL
 @author Roger Baklund roger@baklund.no
 
 Version history:
 
+- 1.3 2016-01-29
+  + unindent() return empty string for no/false/NULL input
 - 1.2 2014-03-19
   + $ws argument added for set_indents()
 - 1.1 2014-03-16
@@ -88,6 +90,7 @@ class Indentation {
    */
   static function unindent($lines) {
     $lines = self::lines($lines);
+    if(!$lines) return '';
     $first = array_shift($lines);
     $min = PHP_INT_MAX;
     foreach($lines as $l) { # find smallest indentation
@@ -120,7 +123,7 @@ class Indentation {
    *
    * This method is similar to indent(), except you provide an array of int
    * values specifying the indentation for each line in the multiline string.
-   * You can append to eisting indentation, and you can provide the character 
+   * You can append to existing indentation, and you can provide the character 
    * to use,  by default it will be a space.
    *
    * @param string|array $lines A string or array of strings you want to indent
@@ -133,12 +136,12 @@ class Indentation {
   static function set_indents($lines,$arr,$append=false,$ws=' ') {
     $lines = self::lines($lines);
     foreach($lines as $idx=>$l)
-      $lines[$idx] = str_repeat(' ',$arr[$idx]).($append?$l:ltrim($l));
+      $lines[$idx] = str_repeat($ws,$arr[$idx]).($append?$l:ltrim($l));
     return implode("\n",$lines);
   }
   /** Get the number of leading whitespace for each line.
    * 
-   * Will count spaces, tabs and even occurences of ASCII 0 and ASCII 11.
+   * Will count spaces, tabs and even occurrences of ASCII 0 and ASCII 11.
    *
    * @param string|array $lines A string or array of strings
    * @return array A list of integers, one for each line in the input
